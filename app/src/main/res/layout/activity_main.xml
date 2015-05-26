@@ -1,0 +1,51 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingLeft="16dp"
+    android:paddingRight="16dp">
+
+    <EditText android:id="@+id/geofence_name"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:hint="@string/geofence_name"/>
+    <LinearLayout android:id="@+id/lat_lng_add"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/geofence_name">
+        <EditText android:id="@+id/latitude"
+                  android:layout_width="0dp"
+                  android:layout_height="wrap_content"
+                  android:layout_weight="0.35"
+                  android:hint="@string/latitude"
+                  android:inputType="numberDecimal"/>
+        <EditText android:id="@+id/longitude"
+                  android:layout_width="0dp"
+                  android:layout_weight="0.35"
+                  android:layout_height="wrap_content"
+                  android:hint="@string/longitude"
+                  android:inputType="numberDecimal"/>
+        <Button
+            android:layout_height="wrap_content"
+            android:layout_width="0dp"
+            android:layout_weight="0.20"
+            android:text="@string/add"
+            android:onClick="addGeofence"/>
+        <Button
+                android:layout_height="wrap_content"
+                android:layout_width="0dp"
+                android:layout_weight="0.10"
+                android:text="@string/here"
+                android:onClick="currentLatLng"/>
+    </LinearLayout>
+    <TextView android:id="@+id/current_geofences"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/current_geofences"
+        android:layout_below="@id/lat_lng_add"
+        style="@android:style/TextAppearance.Large"/>
+    <ListView android:id="@+id/geofence_list"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/current_geofences"/>
+</RelativeLayout>

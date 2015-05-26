@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">ImHeeere</string>
+
+    <string name="latitude">Latitude</string>
+    <string name="longitude">Latitude</string>
+    <string name="geofence_name">Geofence Name</string>
+    <string name="add">Add</string>
+    <string name="here">ʘ</string>
+    <string name="current_geofences">Current Geofences</string>
+    <string name="current_geofence">Current Geofence</string>
+
+    <string name="action_settings">Settings</string>
+</resources>
