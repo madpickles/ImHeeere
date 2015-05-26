@@ -1,9 +1,3 @@
-/*
-   For step-by-step instructions on connecting your Android application to this backend module,
-   see "App Engine Java Endpoints Module" template documentation at
-   https://github.com/GoogleCloudPlatform/gradle-appengine-templates/tree/master/HelloEndpoints
-*/
-
 package org.madpickles.imheeere.endpoints;
 
 import com.google.api.server.spi.config.Api;
@@ -17,8 +11,8 @@ import javax.inject.Named;
 
 @Api(name = "geofenceApi",
     version = "v1",
-    namespace = @ApiNamespace(ownerDomain = "im-heeere.appspot.com",
-                              ownerName = "im-heeere.appspot.com",
+    namespace = @ApiNamespace(ownerDomain = "imheeere.madpickles.org",
+                              ownerName = "imheeere.madpickles.org",
                               packagePath = ""),
     scopes = {"https://www.googleapis.com/auth/userinfo.email"},
     clientIds = {
@@ -30,6 +24,7 @@ import javax.inject.Named;
 public class GeofenceEndpoint {
 
   private static final Logger logger = Logger.getLogger(GeofenceEndpoint.class.getName());
+
     @ApiMethod(name = "sayHi")
     public MyBean sayHi(@Named("name") String name) {
         MyBean response = new MyBean();

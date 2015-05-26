@@ -26,6 +26,11 @@ dependencies {
     compile 'com.google.appengine:appengine-endpoints:1.9.14'
     compile 'com.google.appengine:appengine-endpoints-deps:1.9.14'
     compile 'javax.servlet:servlet-api:2.5'
+    // Should be testCompile?
+    compile 'junit:junit:4.12'
+    compile 'com.google.appengine:appengine-api-labs:1.9.14'
+    compile 'com.google.appengine:appengine-api-stubs:1.9.14'
+    compile 'com.google.appengine:appengine-testing:1.9.14'
 }
 
 appengine {

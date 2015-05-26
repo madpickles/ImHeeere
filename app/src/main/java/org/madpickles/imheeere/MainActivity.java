@@ -77,6 +77,7 @@ public class MainActivity extends ActionBarActivity
     super.onCreate(savedInstanceState);
 
     final SharedPreferences preferences = getSharedPreferences(SHARED_PREFERENCES_NAME, this.MODE_PRIVATE);
+    // Must be same as WEB_ID in endpoint backend.
     this.credential = GoogleAccountCredential.usingAudience(this,
         "server:client_id:172211572567-ji431ela2ppnd56pnoe7nkg1tbds2ib7.apps.googleusercontent.com");
     final String accountName = preferences.getString(PREFERRED_ACCOUNT_NAME, null);
