@@ -55,6 +55,18 @@ public class UserEntity {
     this.geofenceIds = geofenceIds;
   }
 
+  public void put() {
+    final Entity entity;
+    try {
+      entity = datastore.get(KeyFactory.createKey("UserEntity", id));
+    } catch (EntityNotFoundException e) {
+      logger.info("put: Entity not found for id: " + id);
+      entity = new Entity("UserEntity", id);
+    }
+    entity.setProperty("geofenceIds", getGeofenceIds());
+    datastore.put(entity);
+  }
+
   public static UserEntity get(final String email) {
     final String id;
     try {
@@ -72,7 +84,7 @@ public class UserEntity {
       final Entity entity = datastore.get(KeyFactory.createKey("UserEntity", id));
       userEntity.setGeofenceIds((Set<String>) entity.getProperty("geofenceIds"));
     } catch (EntityNotFoundException e) {
-      logger.info("Entity not found for id: " + id);
+      logger.info("get: Entity not found for id: " + id);
     }
     return userEntity;
   }
