@@ -10,6 +10,7 @@ import com.google.appengine.api.datastore.KeyFactory;
 import java.nio.charset.Charset;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.logging.Level;
@@ -20,8 +21,10 @@ import javax.xml.bind.DatatypeConverter;
 public class UserEntity {
 
   private static final Logger logger = Logger.getLogger(UserEntity.class.getName());
+  private static final String USER_ENTITY = "UserEntity";
+  private static final String GEOFENCE_IDS = "geofenceIds";
 
-  private String id;
+  private String id;  // The datastore Key's name/id.
   private Set<String> geofenceIds;
 
   private static String generateId(final String email) throws NoSuchAlgorithmException {
@@ -29,10 +32,6 @@ public class UserEntity {
     md.reset();
     md.update(email.getBytes(Charset.forName("UTF-8")));
     return DatatypeConverter.printHexBinary(md.digest());
-  }
-
-  public void setId(final String id) {
-    this.id = id;
   }
 
   public String getId() {
@@ -46,24 +45,21 @@ public class UserEntity {
 
   public Set<String> getGeofenceIds() {
     if (geofenceIds == null) {
-      geofenceIds = new HashSet<String>();
+      geofenceIds = new HashSet<>();
     }
     return geofenceIds;
   }
 
-  public void setGeofenceIds(final Set<String> geofenceIds) {
-    this.geofenceIds = geofenceIds;
-  }
-
   public void put() {
-    final Entity entity;
+    final DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
+    Entity entity;
     try {
-      entity = datastore.get(KeyFactory.createKey("UserEntity", id));
+      entity = datastore.get(KeyFactory.createKey(USER_ENTITY, id));
     } catch (EntityNotFoundException e) {
       logger.info("put: Entity not found for id: " + id);
-      entity = new Entity("UserEntity", id);
+      entity = new Entity(USER_ENTITY, id);
     }
-    entity.setProperty("geofenceIds", getGeofenceIds());
+    entity.setProperty(GEOFENCE_IDS, getGeofenceIds());
     datastore.put(entity);
   }
 
@@ -77,12 +73,12 @@ public class UserEntity {
     }
 
     final UserEntity userEntity = new UserEntity();
-    userEntity.setId(id);
+    userEntity.id = id;
 
     final DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
     try {
-      final Entity entity = datastore.get(KeyFactory.createKey("UserEntity", id));
-      userEntity.setGeofenceIds((Set<String>) entity.getProperty("geofenceIds"));
+      final Entity entity = datastore.get(KeyFactory.createKey(USER_ENTITY, id));
+      userEntity.geofenceIds = new HashSet((ArrayList<String>) entity.getProperty(GEOFENCE_IDS));
     } catch (EntityNotFoundException e) {
       logger.info("get: Entity not found for id: " + id);
     }

@@ -46,4 +46,21 @@ public class GeofenceEndpoint {
     return response;
   }
 
+  @ApiMethod(name = "createOrUpdateGeofence", httpMethod = "post")
+  public GeofenceBean createOrUpdateGeofence(
+      User user, @Named("shareableId") String shareableId, @Named("lat") Double lat,
+      @Named("lng") Double lng, @Named("geofenceName") String geofenceName) {
+    if (user == null) {
+      logger.info("NULL user.");
+      return null;
+    }
+    final GeofenceEntity entity = GeofenceEntity.get(shareableId);
+    entity.setFromEndpoint(lat, lng, geofenceName);
+    entity.put();
+
+    return entity.toBean();
+  }
+
+  // enterGeofence, generateId from email, update geofence members, notify
+  // exitGeofence, generateId from email, update geofence members, notify?
 }
